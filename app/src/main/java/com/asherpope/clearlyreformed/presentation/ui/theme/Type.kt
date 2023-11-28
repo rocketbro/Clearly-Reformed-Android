@@ -1,4 +1,4 @@
-package com.asherpope.clearlyreformed.ui.theme
+package com.asherpope.clearlyreformed.presentation.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
