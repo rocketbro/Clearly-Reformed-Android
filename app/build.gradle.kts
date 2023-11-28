@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.asherpope.clearlyreformed"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.asherpope.clearlyreformed"
