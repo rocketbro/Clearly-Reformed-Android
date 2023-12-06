@@ -5,6 +5,7 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.viewinterop.AndroidView
+import com.asherpope.clearlyreformed.domain.JSInterface
 
 @Composable
 fun WebViewPage(url: String) {
@@ -19,10 +20,25 @@ fun WebViewPage(url: String) {
                 ViewGroup.LayoutParams.MATCH_PARENT
             )
 
-            webViewClient = WebViewClient()
+            val jsInterface = JSInterface(this.context)
+            val printJS = """
+window.print = function() {
+    JSI.sayHelloTo('Asher');
+};
+"""
+
+            this.addJavascriptInterface(jsInterface, "JSI")
+
+            webViewClient = object : WebViewClient() {
+                override fun onPageFinished(view: WebView?, url: String?) {
+                    // Inject your script to be executed when window.print() is called
+                    view?.evaluateJavascript(printJS, null)
+                }
+            }
             loadUrl(url)
         }
-    }, update = {
-        it.loadUrl(url)
+    }, update = { webView ->
+
+        webView.loadUrl(url)
     })
 }
